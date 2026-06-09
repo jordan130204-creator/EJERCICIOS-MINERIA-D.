@@ -4,7 +4,8 @@
 -[Fizzbus](https://github.com/jordan130204-creator/EJERCICIOS-MINERIA-D./blob/main/mineriadatos%20(1).ipynb)
 
 #EJERCIO 1
--[Operacion aritmetica] ()
+-[Operacion aritmetica] (https://github.com/jordan130204-creator/EJERCICIOS-MINERIA-D./blob/main/Ejercicio%201%3A%20Operaci%C3%B3n%20aritm%C3%A9tica)
+
 #EJERCIO 2
 -[Pizeria bella napoli] ()
 #EJERCIO 3
