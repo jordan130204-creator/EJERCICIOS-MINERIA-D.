@@ -1,1 +1,19 @@
+#EJERCICIO 1
+hermanas = 2; #int Perla
+print("Yo tengo",hermanas,"hermanas.")
+
+estatura = 1.53 #float
+print("Mi estatura es de",estatura,"m.")
+
+esMayor = True #boolean
+print("¿La persona es mayor de edad?",esMayor)
+
+domicilio = "Av. Ing. Militares y Av. Mexico Tacuba" #string
+print("La UTC Toreo se encuentra en",domicilio)
+
+
+#EJERCICIO 2
+
+
+
 
