@@ -26,3 +26,21 @@ with open("ventas.csv" , "r") as archivo:
 ['18', '2026-01-16', 'Laptop Lenovo', 'Laptops', '2', '16500', 'Puebla', 'Carlos']
 ['19', '2026-01-17', 'Mouse Logitech', 'Accesorios', '8', '350', 'Toluca', 'Luis']
 ['20', '2026-01-18', 'Memoria RAM 16GB', 'Componentes', '2', '1800', 'CDMX', 'Ana']
+
+#TOTAL DEL PRODUCTOS 
+import csv
+total = 0
+with open("ventas.csv" , "r") as archivo:
+  lector = csv.DictReader(archivo)
+
+  for fila in lector:
+    #print(fila)
+    cantidad = int(fila["Cantidad"])
+    precio = float(fila["Precio_Unitario"])
+    total += cantidad * precio
+print("Ventas totales:", total)
+     
+Ventas totales: 170300.0
+
+
+
