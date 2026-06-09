@@ -36,3 +36,35 @@ Hola
 True
 Hola
 [1, 2, 3]
+
+
+SUMAR LOS ELEMENTOS DE UNA LISTA
+
+
+numeros = [10, 20, 30, 40, 50]
+suma = sum(numeros)
+print("La suma es:", suma)
+     
+La suma es: 150
+
+from collections import Counter
+frutas = ["manzana", "pera", "manzana", "uva", "manzana"]
+conteo = Counter(frutas)
+print("Resultado del conteo:")
+for elemento, cantidad in conteo.items():
+    print(f"{elemento}: {cantidad}")
+     
+Resultado del conteo:
+manzana: 3
+pera: 1
+uva: 1
+
+numeros = [1, 2, 3, 4, 5]
+numeros_invertidos = numeros[::-1]
+print("Lista original:", numeros)
+print("Lista invertida:", numeros_invertidos)
+saludo()
+     
+Lista original: [1, 2, 3, 4, 5]
+Lista invertida: [5, 4, 3, 2, 1]
+¡Hola amigo!
