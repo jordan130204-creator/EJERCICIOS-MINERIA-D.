@@ -1,6 +1,6 @@
 | # | Ejercicio | Archivo |
 |---|---|---|
-| 1 | Operación aritmética | [operacion.py]() |
+| 1 | Operación aritmética | [operacion.py](Ejercicio%201%3A%20Operación%20aritmética) |
 | 2 | Pizzería Bella Napoli | [pizzeria.py](EJERCICIO%202%20PIZZERIA%20BELLA%20NAPOLI) |
 | 3 | Tablas de multiplicar | [tablas.py](EJERCICIO%203%20TABLAS%20DE%20MULTIPLICAR) |
 | 4 | Validación de contraseñas | [contrasenas.py](EJERCICIO%204%20VALIDACION%20DE%20CONTRASEÑAS) |
