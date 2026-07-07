@@ -1,0 +1,19 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+df = pd.read_csv("estudiantes.csv")
+
+# Separar datos
+media = df["Horas_Estudio"].mean()
+bajas = df[df["Horas_Estudio"] <= media]["Calificacion_Final"]
+altas = df[df["Horas_Estudio"] > media]["Calificacion_Final"]
+
+# Al usar alpha=0.6 se vuelven semitransparentes y se ve el efecto de histograma real
+plt.hist(bajas, bins=5, alpha=0.6, label="Poco Estudio", color="indianred")
+plt.hist(altas, bins=5, alpha=0.6, label="Mucho Estudio", color="teal")
+
+plt.xlabel("Calificación final")
+plt.ylabel("Estudiantes")
+plt.title("Distribución de Calificaciones")
+plt.legend()
+plt.show()
