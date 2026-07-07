@@ -1,0 +1,15 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+df = pd.read_csv("estudiantes.csv")
+
+# Creamos una etiqueta rápida en el DataFrame para dividir los grupos
+df["Grupo_Estudio"] = df["Horas_Estudio"].apply(lambda x: "Mucho" if x > df["Horas_Estudio"].mean() else "Poco")
+
+# Grafica cruzando las variables en una sola línea
+df.boxplot(column="Calificacion_Final", by="Grupo_Estudio")
+
+plt.ylabel("Calificación Final")
+plt.title("Calificaciones por Grupo de Estudio")
+plt.suptitle("") # Borra un título automático extra que pone Pandas
+plt.show()
