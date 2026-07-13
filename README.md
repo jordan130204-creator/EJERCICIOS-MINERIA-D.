@@ -20,4 +20,4 @@
 | 5.1 | correlacion 2do parcial | [correlacion.py](https://github.com/jordan130204-creator/EJERCICIOS-MINERIA-D./blob/main/Ejercicio%20Correlacion) |
 | 6 | Gráfica Box Plot "Bigotes" 2do Parcial | [csv.py](medidas%20de%20dispercion%202do%20Parcial) |
 | 7 | Arbol Act 5 2do Parcial | ![arbol.py](https://github.com/jordan130204-creator/EJERCICIOS-MINERIA-D./blob/main/WhatsApp%20Image%202026-07-08%20at%208.55.21%20AM.jpeg) |
-| 8 | tabla comparativa modelos de clasificacion 2do Parcial | [csv.py](medidas%20de%20dispercion%202do%20Parcial) |
+| 8 | tabla comparativa modelos de clasificacion 2do Parcial | [csv.py](WhatsApp%20Image%202026-07-13%20at%2010.32.21%20AM.jpeg) |
