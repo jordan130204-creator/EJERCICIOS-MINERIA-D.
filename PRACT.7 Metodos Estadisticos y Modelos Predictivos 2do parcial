@@ -1,0 +1,187 @@
+import pandas as pd
+import numpy as np
+
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier, export_text
+from sklearn.naive_bayes import GaussianNB
+from sklearn.linear_model import LogisticRegression, LinearRegression
+from sklearn.metrics import (
+    accuracy_score,
+    classification_report,
+    r2_score,
+    mean_squared_error
+)
+
+# Cargar datos
+datos = pd.read_csv("dataset_sucursales_mensual.csv")
+datos = datos.dropna()
+
+print("\n PRÁCTICA 7\n")
+
+variables = [
+    "Gasto_Publicidad",
+    "Clientes_Atendidos",
+    "Satisfaccion_Cliente",
+    "Descuento_Promedio",
+    "Ventas_Totales"
+]
+
+# 1. Estadística Descriptiva
+
+print("1) ESTADÍSTICA DESCRIPTIVA\n")
+
+resumen = datos[variables].describe().transpose()
+
+resumen["Mediana"] = datos[variables].median()
+resumen["Varianza"] = datos[variables].var()
+
+resumen = resumen[
+    ["count", "mean", "Mediana", "std", "Varianza", "min", "max"]
+]
+
+print(resumen.round(2))
+
+print("\n" + "="*70)
+
+# 2. Correlaciones
+
+print("\n2) CORRELACIONES CON VENTAS\n")
+
+corr = datos[variables].corr()
+
+for columna in variables[:-1]:
+    print(
+        f"{columna:25} -> {corr.loc[columna,'Ventas_Totales']:.4f}"
+    )
+
+print("\n" + "="*70)
+
+# 3. Clasificación
+
+print("\n3) MODELOS DE CLASIFICACIÓN\n")
+
+datos["Meta"] = datos["Cumplio_Meta"].replace({
+    "Si":1,
+    "Sí":1,
+    "No":0
+})
+
+X = datos[variables]
+y = datos["Meta"]
+
+X_entrena, X_prueba, y_entrena, y_prueba = train_test_split(
+    X,
+    y,
+    test_size=0.30,
+    random_state=42
+)
+
+clasificadores = [
+    ("Árbol de Decisión",
+     DecisionTreeClassifier(max_depth=3, random_state=42)),
+
+    ("Naive Bayes",
+     GaussianNB()),
+
+    ("Regresión Logística",
+     LogisticRegression(max_iter=1000))
+]
+
+for nombre, modelo in clasificadores:
+
+    modelo.fit(X_entrena, y_entrena)
+
+    pred = modelo.predict(X_prueba)
+
+    print(f"\n----- {nombre} -----")
+
+    print("Accuracy:",
+          round(accuracy_score(y_prueba, pred),4))
+
+    print(classification_report(
+        y_prueba,
+        pred,
+        target_names=["No Cumplió","Cumplió"]
+    ))
+
+print("\nÁRBOL DE DECISIÓN\n")
+
+print(export_text(
+    clasificadores[0][1],
+    feature_names=list(X.columns),
+    class_names=["No Cumplió","Cumplió"]
+))
+
+print("\n" + "="*70)
+
+# 4. Regresión
+
+print("\n4) REGRESIÓN LINEAL\n")
+
+# Predictor con mayor correlación absoluta
+mejor_variable = (
+    corr["Ventas_Totales"]
+    .drop("Ventas_Totales")
+    .abs()
+    .idxmax()
+)
+
+print("Mejor predictor:", mejor_variable)
+
+#  Regresión Simple
+
+X_simple = datos[[mejor_variable]]
+Y = datos["Ventas_Totales"]
+
+Xs_train, Xs_test, Ys_train, Ys_test = train_test_split(
+    X_simple,
+    Y,
+    test_size=0.30,
+    random_state=42
+)
+
+modelo_simple = LinearRegression()
+
+modelo_simple.fit(Xs_train, Ys_train)
+
+pred_simple = modelo_simple.predict(Xs_test)
+
+print("\nRegresión Lineal Simple")
+
+print("R²:",
+      round(r2_score(Ys_test, pred_simple),4))
+
+print("RMSE:",
+      round(np.sqrt(mean_squared_error(Ys_test, pred_simple)),2))
+
+#Regresión Múltiple
+
+X_multiple = datos[
+    [
+        "Gasto_Publicidad",
+        "Clientes_Atendidos",
+        "Satisfaccion_Cliente",
+        "Descuento_Promedio"
+    ]
+]
+
+Xm_train, Xm_test, Ym_train, Ym_test = train_test_split(
+    X_multiple,
+    Y,
+    test_size=0.30,
+    random_state=42
+)
+
+modelo_multiple = LinearRegression()
+
+modelo_multiple.fit(Xm_train, Ym_train)
+
+pred_multiple = modelo_multiple.predict(Xm_test)
+
+print("\nRegresión Lineal Múltiple")
+
+print("R²:",
+      round(r2_score(Ym_test, pred_multiple),4))
+
+print("RMSE:",
+      round(np.sqrt(mean_squared_error(Ym_test, pred_multiple)),2))
