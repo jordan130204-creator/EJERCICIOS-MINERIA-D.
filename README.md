@@ -21,5 +21,5 @@
 | 6 | Gráfica Box Plot "Bigotes" 2do Parcial | [csv.py](medidas%20de%20dispercion%202do%20Parcial) |
 | 7 | Arbol Act 5 2do Parcial | ![arbol.py](https://github.com/jordan130204-creator/EJERCICIOS-MINERIA-D./blob/main/WhatsApp%20Image%202026-07-08%20at%208.55.21%20AM.jpeg) |
 | 8 | tabla comparativa modelos de clasificacion 2do Parcial | [csv.py](WhatsApp%20Image%202026-07-13%20at%2010.32.21%20AM.jpeg) |
-| 9 | PRACT.7 Metodos Estadisticos y Modelos Predictivos 2do parcial | [csv.py](WhatsApp%20Image%202026-07-13%20at%2010.32.21%20AM.jpeg) |
+| 9 | PRACT.7 Metodos Estadisticos y Modelos Predictivos 2do parcial | [csv.py](PRACT.7%20Metodos%20Estadisticos%20y%20Modelos%20Predictivos%202do%20par) |
 | 9 | PRACT.7 IMAGEN DEL DIAGRAMA DE ÁRBOL | [csv.py](imagen%20a.m..png) |
