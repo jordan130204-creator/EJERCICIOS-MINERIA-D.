@@ -24,3 +24,4 @@
 | 9 | PRACT.7 Metodos Estadisticos y Modelos Predictivos 2do parcial | [csv.py](PRACT.7%20Metodos%20Estadisticos%20y%20Modelos%20Predictivos%202do%20par) |
 | 9 | PRACT.7 IMAGEN DEL DIAGRAMA DE ÁRBOL | [csv.py](imagen%20a.m..png) |
 | 10 | PRACT.1 k-MEANS 3er PARCIAL | [csv.py](PRACT.1%20K-MEANS%203er%20PARCIAL) |
+| 10 | PRACT.2 METODO CODO 3er PARCIAL | [csv.py](PRACT.1%20K-MEANS%203er%20PARCIAL) |
