@@ -25,4 +25,4 @@
 | 9 | PRACT.7 IMAGEN DEL DIAGRAMA DE ÁRBOL | [csv.py](imagen%20a.m..png) |
 | 1 | PRACT.1 k-MEANS 3er PARCIAL | [csv.py](PRACT.1%20K-MEANS%203er%20PARCIAL) |
 | 2 | PRACT.2 METODO CODO 3er PARCIAL | [csv.py](image.png) |
-| 3 | PRACT.3 red neuronal 3er PARCIAL | [csv.py](image.png) |
+| 3 | PRACT.3 red neuronal 3er PARCIAL | [csv.py](PRACT.3%20red%20neuronal%203er%20PARCIAL) |
