@@ -26,3 +26,4 @@
 | 1 | PRACT.1 k-MEANS 3er PARCIAL | [csv.py](PRACT.1%20K-MEANS%203er%20PARCIAL) |
 | 2 | PRACT.2 METODO CODO 3er PARCIAL | [csv.py](image.png) |
 | 3 | PRACT.3 red neuronal 3er PARCIAL | [csv.py](PRACT.3%20red%20neuronal%203er%20PARCIAL) |
+| 4 | PRACT.4 TABLAS DE PATRONES 3er PARCIAL | [csv.py](PRACT.3%20red%20neuronal%203er%20PARCIAL) |
