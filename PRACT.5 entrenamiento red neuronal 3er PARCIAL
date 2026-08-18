@@ -1,0 +1,430 @@
+# ENTRENAMIENTO DE RED NEURONAL
+# Clasificación del estado de equipos de cómputo
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+from sklearn.model_selection import train_test_split, StratifiedKFold
+from sklearn.preprocessing import StandardScaler, OneHotEncoder, LabelEncoder
+from sklearn.compose import ColumnTransformer
+from sklearn.pipeline import Pipeline
+
+from sklearn.neural_network import MLPClassifier
+
+from sklearn.metrics import (
+    accuracy_score,
+    balanced_accuracy_score,
+    confusion_matrix,
+    classification_report,
+    ConfusionMatrixDisplay
+)
+
+from sklearn.model_selection import cross_val_score
+
+# 1. CARGAR DATASET
+
+df = pd.read_csv("equipos_computo (1).csv")
+
+print("Primeras filas del dataset:")
+print(df.head())
+
+print("\nDimensiones:")
+print(df.shape)
+
+print("\nValores nulos:")
+print(df.isnull().sum())
+
+# 2. DISTRIBUCIÓN DE LA VARIABLE OBJETIVO
+
+print("\nDistribución del estado de los equipos:")
+print(df["Estado_Equipo"].value_counts())
+
+print("\nPorcentaje:")
+print(df["Estado_Equipo"].value_counts(normalize=True) * 100)
+
+
+# 3. SEPARAR VARIABLES
+
+# ID no se utiliza para identificar solamente al equipo
+
+X = df.drop(columns=["ID_Equipo", "Estado_Equipo"])
+
+y = df["Estado_Equipo"]
+
+# 4. CODIFICAcion de la variable del OBJETIVO
+
+label_encoder = LabelEncoder()
+
+y = label_encoder.fit_transform(y)
+
+print("\nClases:")
+print(label_encoder.classes_)
+
+# 5. IDENTIFICAR VARIABLES NUMÉRICAS Y CATEGÓRICAS
+
+variables_categoricas = ["Laboratorio"]
+
+variables_numericas = [
+    "Horas_Uso_Semanal",
+    "Temperatura_CPU",
+    "Uso_RAM_Porcentaje",
+    "Espacio_Disco_Libre",
+    "Errores_Sistema",
+    "Tiempo_Arranque_Segundos"
+]
+
+# 6. PREPROCESAMIENTO
+
+preprocesamiento = ColumnTransformer(
+
+    transformers=[
+
+        (
+            "numericas",
+            StandardScaler(),
+            variables_numericas
+        ),
+
+        (
+            "categoricas",
+            OneHotEncoder(handle_unknown="ignore"),
+            variables_categoricas
+        )
+    ]
+)
+# 7. creacion de   red neuronal 
+
+modelo = Pipeline([
+
+    (
+        "preprocesamiento",
+        preprocesamiento
+    ),
+
+    (
+        "red_neuronal",
+        MLPClassifier(
+
+            hidden_layer_sizes=(16, 8),
+
+            activation="relu",
+
+            solver="adam",
+
+            alpha=0.001,
+
+            learning_rate_init=0.01,
+
+            max_iter=2000,
+
+            early_stopping=True,
+
+            validation_fraction=0.20,
+
+            n_iter_no_change=30,
+
+            random_state=42
+        )
+    )
+])
+
+# 8. DIVIDIR DATOS
+
+X_train, X_test, y_train, y_test = train_test_split(
+
+    X,
+    y,
+
+    test_size=0.30,
+
+    random_state=42,
+
+    stratify=y
+)
+
+
+print("\nDatos de entrenamiento:", len(X_train))
+print("Datos de prueba:", len(X_test))
+
+# 9. ENTRENAMIENTO
+
+print("\nEntrenando la red neuronal...")
+
+modelo.fit(X_train, y_train)
+
+print("Entrenamiento terminado.")
+
+# 10. PREDICCIONES
+
+y_pred = modelo.predict(X_test)
+
+# 11. EVALUACIÓN
+
+accuracy = accuracy_score(y_test, y_pred)
+
+balanced_accuracy = balanced_accuracy_score(
+    y_test,
+    y_pred
+)
+
+
+print("\n======================================")
+print("RESULTADOS DEL MODELO")
+print("======================================")
+
+print(f"Accuracy: {accuracy:.4f}")
+
+print(
+    f"Balanced Accuracy: "
+    f"{balanced_accuracy:.4f}"
+)
+
+# 12. REPORTE DE CLASIFICACIÓN
+
+print("\nReporte de clasificación:")
+
+print(
+    classification_report(
+        y_test,
+        y_pred,
+        target_names=label_encoder.classes_
+    )
+)
+# 13. MATRIZ DE CONFUSIÓN
+
+matriz = confusion_matrix(
+    y_test,
+    y_pred
+)
+
+print("\nMatriz de confusión:")
+print(matriz)
+
+
+disp = ConfusionMatrixDisplay(
+
+    confusion_matrix=matriz,
+
+    display_labels=label_encoder.classes_
+)
+
+disp.plot()
+
+plt.title("Matriz de Confusión - Red Neuronal")
+
+plt.show()
+
+# 14. VALIDACIÓN CRUZADA
+
+cv = StratifiedKFold(
+
+    n_splits=5,
+
+    shuffle=True,
+
+    random_state=42
+)
+
+
+resultados_cv = cross_val_score(
+
+    modelo,
+
+    X,
+
+    y,
+
+    cv=cv,
+
+    scoring="accuracy"
+)
+
+
+print("\n======================================")
+print("VALIDACIÓN CRUZADA")
+print("======================================")
+
+for i, resultado in enumerate(resultados_cv, 1):
+
+    print(
+        f"Fold {i}: "
+        f"{resultado * 100:.2f}%"
+    )
+
+
+print(
+    f"\nPromedio: "
+    f"{resultados_cv.mean() * 100:.2f}%"
+)
+
+
+print(
+    f"Desviación estándar: "
+    f"{resultados_cv.std() * 100:.2f}%"
+)
+
+# 15. ENTRENAR MODELO FINAL
+
+modelo_final = Pipeline([
+
+    (
+        "preprocesamiento",
+        preprocesamiento
+    ),
+
+    (
+        "red_neuronal",
+        MLPClassifier(
+
+            hidden_layer_sizes=(16, 8),
+
+            activation="relu",
+
+            solver="adam",
+
+            alpha=0.001,
+
+            learning_rate_init=0.01,
+
+            max_iter=2000,
+
+            early_stopping=True,
+
+            validation_fraction=0.20,
+
+            n_iter_no_change=30,
+
+            random_state=42
+        )
+    )
+])
+
+
+modelo_final.fit(X, y)
+
+# 16. REALIZAR NUEVAS PREDICCIONES
+
+
+nuevos_equipos = pd.DataFrame({
+
+    "Laboratorio": [
+        "Lab_A",
+        "Lab_B",
+        "Lab_C",
+        "Lab_Redes"
+    ],
+
+    "Horas_Uso_Semanal": [
+        12,
+        35,
+        55,
+        30
+    ],
+
+    "Temperatura_CPU": [
+        42,
+        65,
+        88,
+        60
+    ],
+
+    "Uso_RAM_Porcentaje": [
+        45,
+        70,
+        92,
+        65
+    ],
+
+    "Espacio_Disco_Libre": [
+        300,
+        120,
+        35,
+        150
+    ],
+
+    "Errores_Sistema": [
+        1,
+        5,
+        15,
+        6
+    ],
+
+    "Tiempo_Arranque_Segundos": [
+        30,
+        70,
+        130,
+        65
+    ]
+})
+
+# 17. PREDICCIÓN
+
+predicciones = modelo_final.predict(
+    nuevos_equipos
+)
+
+
+probabilidades = modelo_final.predict_proba(
+    nuevos_equipos
+)
+
+
+print("\n======================================")
+print("PREDICCIONES")
+print("======================================")
+
+
+for i in range(len(nuevos_equipos)):
+
+    clase = label_encoder.inverse_transform(
+        [predicciones[i]]
+    )[0]
+
+    confianza = (
+        probabilidades[i].max() * 100
+    )
+
+    print(
+        f"\nEquipo {i + 1}"
+    )
+
+    print(
+        f"Predicción: {clase}"
+    )
+
+    print(
+        f"Confianza: {confianza:.2f}%"
+    )
+# 18. intrepretacion personal 
+
+print("\n======================================")
+print("INTERPRETACIÓN")
+print("======================================")
+
+print("""
+La red neuronal obtuvo un desempeño elevado
+en la clasificación del estado de los equipos.
+
+El resultado de la prueba indica que el modelo
+puede diferenciar correctamente entre equipos
+Buenos, Regulares y Críticos.
+
+La validación cruzada permite comprobar que el
+resultado no depende únicamente de una división
+específica del dataset.
+
+Las variables relacionadas con temperatura,
+RAM, errores del sistema, espacio disponible,
+horas de uso y tiempo de arranque presentan
+patrones diferentes entre las tres categorías.
+
+Por lo tanto, estas variables son útiles para
+realizar una clasificación automática del estado
+de los equipos.
+
+El modelo puede utilizarse como apoyo para
+detectar equipos que requieren mantenimiento.
+Sin embargo, sería recomendable aumentar la
+cantidad de registros antes de utilizarlo en
+un entorno real.
+""")
