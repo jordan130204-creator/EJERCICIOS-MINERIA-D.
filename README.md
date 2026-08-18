@@ -27,3 +27,4 @@
 | 2 | PRACT.2 METODO CODO 3er PARCIAL | [csv.py](image.png) |
 | 3 | PRACT.3 red neuronal 3er PARCIAL | [csv.py](PRACT.3%20red%20neuronal%203er%20PARCIAL) |
 | 4 | PRACT.4 TABLAS DE PATRONES 3er PARCIAL | [csv.py](PRACT.4%20TABLAS%20DE%20PATRONES%203er%20PARCIAL) |
+| 5 | PRACT.5 entrenamiento red neuronal 3er PARCIAL | [csv.py]() |
